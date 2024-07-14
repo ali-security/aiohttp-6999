@@ -689,7 +689,7 @@ class HttpResponseParser(HttpParser[RawResponseMessage]):
         version_o = HttpVersion(int(match.group(1)), int(match.group(2)))
 
         # The status code is a three-digit number
-        if not DIGITS.fullmatch(status):
+        if len(status) != 3 or not DIGITS.fullmatch(status):
             raise BadStatusLine(line)
         status_i = int(status)
 
