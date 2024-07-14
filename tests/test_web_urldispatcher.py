@@ -245,7 +245,6 @@ async def test_follow_symlink_directory_traversal(tmp_path, aiohttp_client) -> N
     response = await reader.readuntil(b"\r\n\r\n")
     assert b"404 Not Found" in response
     writer.close()
-    await writer.wait_closed()
     await client.close()
 
 
@@ -297,7 +296,6 @@ async def test_follow_symlink_directory_traversal_after_normalization(
     response = await reader.readuntil(b"\r\n\r\n")
     assert b"404 Not Found" in response
     writer.close()
-    await writer.wait_closed()
 
     reader, writer = await asyncio.open_connection(client.host, client.port)
     writer.write(b"GET /my_symlink/symlink_target_file HTTP/1.1\r\n\r\n")
@@ -306,7 +304,6 @@ async def test_follow_symlink_directory_traversal_after_normalization(
     response = await reader.readuntil(b"readable")
     assert response == b"readable"
     writer.close()
-    await writer.wait_closed()
     await client.close()
 
 
