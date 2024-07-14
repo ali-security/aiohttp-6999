@@ -274,7 +274,6 @@ jobs:
     name: Build wheels on ${{ matrix.os }} ${{ matrix.qemu }}
     runs-on: ${{ matrix.os }}-latest
     needs: pre-deploy
-    fail-fast: false
     strategy:
       matrix:
         os: [ubuntu, windows, macos]
@@ -287,6 +286,7 @@ jobs:
           qemu: ppc64le
         - os: ubuntu
           qemu: s390x
+      fail-fast: false
     steps:
     - name: Checkout
       uses: actions/checkout@v2.4.0
