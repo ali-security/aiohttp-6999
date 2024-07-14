@@ -221,9 +221,7 @@ async def test_follow_symlink(tmp_dir_path, aiohttp_client) -> None:
     assert (await r.text()) == data
 
 
-async def test_follow_symlink_directory_traversal(
-    tmp_path: pathlib.Path, aiohttp_client: AiohttpClient
-) -> None:
+async def test_follow_symlink_directory_traversal(tmp_path, aiohttp_client) -> None:
     # Tests that follow_symlinks does not allow directory transversal
     data = "private"
 
@@ -252,7 +250,7 @@ async def test_follow_symlink_directory_traversal(
 
 
 async def test_follow_symlink_directory_traversal_after_normalization(
-    tmp_path: pathlib.Path, aiohttp_client: AiohttpClient
+    tmp_path, aiohttp_client
 ) -> None:
     # Tests that follow_symlinks does not allow directory transversal
     # after normalization
