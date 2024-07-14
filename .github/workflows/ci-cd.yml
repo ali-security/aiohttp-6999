@@ -129,14 +129,6 @@ jobs:
             no-extensions: 'Y'
         experimental: [false]
         include:
-          - pyver: pypy-3.8
-            no-extensions: 'Y'
-            os: ubuntu-latest
-            experimental: false
-          - os: macos-13
-            pyver: "3.11.0-alpha - 3.11.0"
-            experimental: true
-            no-extensions: 'Y'
           - os: ubuntu-latest
             pyver: "3.11.0-alpha - 3.11.0"
             experimental: false
