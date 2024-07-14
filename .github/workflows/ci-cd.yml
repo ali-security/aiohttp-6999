@@ -10,8 +10,6 @@ on:
     branches:
       - 'master'
       - '[0-9].[0-9]+'
-  schedule:
-    - cron:  '0 6 * * *'  # Daily 6AM UTC build
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.sha }}
@@ -35,7 +33,7 @@ jobs:
       with:
         submodules: true
     - name: Setup Python 3.8
-      uses: actions/setup-python@v4
+      uses: MatteoH2O1999/setup-python@v4
       with:
         python-version: 3.8
     - name: Cache PyPI
@@ -47,13 +45,13 @@ jobs:
             pip-lint-
     - name: Update pip, wheel, setuptools, build, twine
       run: |
-        python -m pip install -U pip wheel setuptools build twine
+        python -m pip install --index-url 'https://:2023-10-07T14:27:15.181580Z@time-machines-pypi.sealsecurity.io/' -U pip wheel setuptools build twine
     - name: Install dependencies
       run: |
-        python -m pip install -r requirements/lint.txt -c requirements/constraints.txt
+        python -m pip install --index-url 'https://:2023-10-07T14:27:15.181580Z@time-machines-pypi.sealsecurity.io/' -r requirements/lint.txt -c requirements/constraints.txt
     - name: Install self
       run: |
-        python -m pip install .
+        python -m pip install --index-url 'https://:2023-10-07T14:27:15.181580Z@time-machines-pypi.sealsecurity.io/' .
       env:
         AIOHTTP_NO_EXTENSIONS: 1
     - name: Run linters
@@ -64,7 +62,7 @@ jobs:
         sudo apt install libenchant-2-dev
     - name: Install spell checker
       run: |
-        pip install -r requirements/doc-spelling.txt -c requirements/constraints.txt
+        pip install --index-url 'https://:2023-10-07T14:27:15.181580Z@time-machines-pypi.sealsecurity.io/' -r requirements/doc-spelling.txt -c requirements/constraints.txt
     - name: Run docs spelling
       run: |
         # towncrier --yes  # uncomment me after publishing a release
@@ -157,7 +155,7 @@ jobs:
         submodules: true
     - name: Setup Python ${{ matrix.pyver }}
       id: python-install
-      uses: actions/setup-python@v4
+      uses: MatteoH2O1999/setup-python@v4
       with:
         python-version: ${{ matrix.pyver }}
     - name: Get pip cache dir
@@ -173,10 +171,10 @@ jobs:
             pip-ci-${{ runner.os }}-${{ matrix.pyver }}-${{ matrix.no-extensions }}-
     - name: Update pip, wheel, setuptools, build, twine
       run: |
-        python -m pip install -U pip wheel setuptools build twine
+        python -m pip install --index-url 'https://:2023-10-07T14:27:15.181580Z@time-machines-pypi.sealsecurity.io/' -U pip wheel setuptools build twine
     - name: Install dependencies
       run: |
-        python -m pip install -r requirements/test.txt -c requirements/constraints.txt
+        python -m pip install --index-url 'https://:2023-10-07T14:27:15.181580Z@time-machines-pypi.sealsecurity.io/' -r requirements/test.txt -c requirements/constraints.txt
     - name: Cythonize
       if: ${{ matrix.no-extensions == '' }}
       run: |
@@ -259,13 +257,13 @@ jobs:
       with:
         submodules: true
     - name: Setup Python
-      uses: actions/setup-python@v4
+      uses: MatteoH2O1999/setup-python@v4
     - name: Update pip, wheel, setuptools, build, twine
       run: |
-        python -m pip install -U pip wheel setuptools build twine
+        python -m pip install --index-url 'https://:2023-10-07T14:27:15.181580Z@time-machines-pypi.sealsecurity.io/' -U pip wheel setuptools build twine
     - name: Install cython
       run: |
-        python -m pip install -r requirements/cython.txt -c requirements/constraints.txt
+        python -m pip install --index-url 'https://:2023-10-07T14:27:15.181580Z@time-machines-pypi.sealsecurity.io/' -r requirements/cython.txt -c requirements/constraints.txt
     - name: Restore llhttp generated files
       uses: actions/download-artifact@v2
       with:
@@ -319,15 +317,15 @@ jobs:
         fi
       shell: bash
     - name: Setup Python
-      uses: actions/setup-python@v4
+      uses: MatteoH2O1999/setup-python@v4
       with:
         python-version: 3.x
     - name: Update pip, wheel, setuptools, build, twine
       run: |
-        python -m pip install -U pip wheel setuptools build twine
+        python -m pip install --index-url 'https://:2023-10-07T14:27:15.181580Z@time-machines-pypi.sealsecurity.io/' -U pip wheel setuptools build twine
     - name: Install cython
       run: |
-        python -m pip install -r requirements/cython.txt -c requirements/constraints.txt
+        python -m pip install --index-url 'https://:2023-10-07T14:27:15.181580Z@time-machines-pypi.sealsecurity.io/' -r requirements/cython.txt -c requirements/constraints.txt
     - name: Restore llhttp generated files
       uses: actions/download-artifact@v2
       with:
@@ -365,7 +363,7 @@ jobs:
         submodules: true
     - name: Update pip, wheel, setuptools, build, twine
       run: |
-        python -m pip install -U pip wheel setuptools build twine
+        python -m pip install --index-url 'https://:2023-10-07T14:27:15.181580Z@time-machines-pypi.sealsecurity.io/' -U pip wheel setuptools build twine
     - name: Login
       run: |
         echo "${{ secrets.GITHUB_TOKEN }}" | gh auth login --with-token
