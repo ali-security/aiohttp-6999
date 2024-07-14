@@ -274,6 +274,7 @@ jobs:
     name: Build wheels on ${{ matrix.os }} ${{ matrix.qemu }}
     runs-on: ${{ matrix.os }}-latest
     needs: pre-deploy
+    fail-fast: false
     strategy:
       matrix:
         os: [ubuntu, windows, macos]
